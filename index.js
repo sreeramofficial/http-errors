@@ -91,7 +91,7 @@ function createError () {
     err = HttpError
       ? new HttpError(msg)
       : new Error(msg || statuses[status])
-    Error.captureStackTrace(err, createError)
+    Error.captureStackTrace && Error.captureStackTrace(err, createError)
   }
 
   if (!HttpError || !(err instanceof HttpError) || err.status !== status) {
@@ -138,7 +138,7 @@ function createClientErrorConstructor (HttpError, name, code) {
     var err = new Error(msg)
 
     // capture a stack trace to the construction point
-    Error.captureStackTrace(err, ClientError)
+    Error.captureStackTrace && Error.captureStackTrace(err, ClientError)
 
     // adjust the [[Prototype]]
     setPrototypeOf(err, ClientError.prototype)
