@@ -144,15 +144,26 @@ function createClientErrorConstructor (HttpError, name, code) {
     setPrototypeOf(err, ClientError.prototype)
 
     // redefine the error message
-    err.message = msg
+    Object.defineProperty(err, 'message', {
+      enumerable: true,
+      configurable: true,
+      value: msg,
+      writable: true
+    })
 
     // redefine the error name
-    err.name = className
+    Object.defineProperty(err, 'name', {
+      enumerable: false,
+      configurable: true,
+      value: className,
+      writable: true
+    })
 
     return err
   }
 
   inherits(ClientError, HttpError)
+  //nameFunc(ClientError, className)
 
   ClientError.prototype.status = code
   ClientError.prototype.statusCode = code
@@ -181,15 +192,26 @@ function createServerErrorConstructor (HttpError, name, code) {
     setPrototypeOf(err, ServerError.prototype)
 
     // redefine the error message
-    err.message = msg
+    Object.defineProperty(err, 'message', {
+      enumerable: true,
+      configurable: true,
+      value: msg,
+      writable: true
+    })
 
     // redefine the error name
-    err.name = className
+    Object.defineProperty(err, 'name', {
+      enumerable: false,
+      configurable: true,
+      value: className,
+      writable: true
+    })
 
     return err
   }
 
   inherits(ServerError, HttpError)
+  //nameFunc(ServerError, className)
 
   ServerError.prototype.status = code
   ServerError.prototype.statusCode = code
