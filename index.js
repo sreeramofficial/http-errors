@@ -186,7 +186,7 @@ function createServerErrorConstructor (HttpError, name, code) {
     var err = new Error(msg)
 
     // capture a stack trace to the construction point
-    Error.captureStackTrace(err, ServerError)
+    Error.captureStackTrace && Error.captureStackTrace(err, ServerError)
 
     // adjust the [[Prototype]]
     setPrototypeOf(err, ServerError.prototype)
